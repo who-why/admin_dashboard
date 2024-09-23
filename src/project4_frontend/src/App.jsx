@@ -1,74 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
+import Sidebar from './components/Sidebar/Sidebar';
+import Home from './components/Home/Home';
+import User from './components/User/UserList';
+import Product from './components/Product/ProductList'
+import Order from './components/Order/Order'
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
-  const [editIndex, setEditIndex] = useState(null);
-  const [editText, setEditText] = useState('');
-
-  const addTodo = () => {
-    if (newTodo.trim() === '') return; 
-    setTodos([...todos, newTodo]);
-    setNewTodo('');
-  };
-
-  const deleteTodo = (index) => {
-    const updatedTodos = todos.filter((_, i) => i !== index);
-    setTodos(updatedTodos);
-  };
-
-  const editTodo = (index) => {
-    setEditIndex(index);
-    setEditText(todos[index]);
-  };
-
-  const saveTodo = (index) => {
-    const updatedTodos = todos.map((todo, i) =>
-      i === index ? editText : todo
-    );
-    setTodos(updatedTodos);
-    setEditIndex(null);
-    setEditText('');
-  };
-
   return (
-    <div className="main-container">
-      <h1>Todo App</h1>
-      <div className="input-container">
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="Enter a task"
-        />
-        <button onClick={addTodo}>Add</button>
+    <Router>
+      <div className="container">
+        <Navbar />
+        <div className="row">
+          <Sidebar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/users" element={<User />} />
+            <Route path="/products" element={<Product/>}/>
+            <Route path="/orders" element={<Order/>}/>
+          </Routes>
+        </div>
       </div>
-
-      <div className="todo-list">
-        {todos.map((todo, index) => (
-          <div key={index} className="todo-item">
-            {editIndex === index ? (
-              <>
-                <input
-                  type="text"
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                />
-                <button onClick={() => saveTodo(index)}>Save</button>
-              </>
-            ) : (
-              <>
-                <span>{todo}</span>
-                <div className="button-container">
-                  <button onClick={() => editTodo(index)}>Edit</button>
-                  <button onClick={() => deleteTodo(index)}>Delete</button>
-                </div>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
+    </Router>
   );
 };
 
