@@ -37,7 +37,7 @@
 .icons-profile {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 20px;
 }
 
 .language-switcher {

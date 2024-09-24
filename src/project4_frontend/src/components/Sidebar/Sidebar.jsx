@@ -31,9 +31,12 @@ const Sidebar = () => {
                             <span className="icon">💳</span> Orders
                         </li>
                     </Link>
-                    <li>
+                    <Link to="/balance" className="link"> 
+                      <li>
                         <span className="icon">💰</span> Balance
-                    </li>
+                      </li>
+                    </Link>
+                
                     <li>
                         <span className="icon">📊</span> Status
                     </li>
